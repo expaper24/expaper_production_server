@@ -138,7 +138,7 @@ function getHtml(username, hashedId, isVerification) {
                   <tr>
                     <td align="center" valign="middle" style="padding: 12px 24px; margin: 0; text-decoration: underline; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;"
                         bgcolor="#3969d5"><a target="_blank" style="text-decoration: underline;
-					color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;" href="${process.env.DOMAIN}/api/verify?id=${hashedId}">
+					color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;" href="https://expaper.vercel.app/api/verify?id=${hashedId}">
 						Verify Email Address
 					</a>
                     </td>
@@ -185,7 +185,7 @@ function getHtml(username, hashedId, isVerification) {
         <body>
             <center>
             <h1>Hi ${username}</h1>
-            <h3>To Reset your password, <a href="${process.env.DOMAIN}/api/reset?id=${hashedId}"> Click here</a></h3>
+            <h3>To Reset your password, <a href="https://expaper.vercel.app/api/reset?id=${hashedId}"> Click here</a></h3>
             </center>
         </body>
         </html>
@@ -279,7 +279,7 @@ margin-top: 8px;
 
 <script>
 function savePassword(newPassword) {
-fetch('${process.env.DOMAIN}/api/changePass', {
+fetch('https://expaper.vercel.app/api/changePass', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
