@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<center><body>
+    <header>
+        <div class="left-corner">
+            <p>Hi, User!</p>
+          </div>
+          <div class="right-corner">
+            <a href="index.html">Logout</a>
+          </div>
+    </header>
+    <div id="content">
+        <form>
+         <center><div style="background-color: #21d3a346;max-height: fit-content; max-width: fit-content; backdrop-filter: 50px; border-radius: 40px; justify-items: center;">
+            <div class="head" style="font-size: 35px;font-weight: bold; padding-top: 50px;">Search for Question Paper</div>
+            <div class="input-box" style="padding:20px;">
+                <label>University:</label>
+                <input type="text" required style="width: 350px">
+                <label>Department:</label>
+                <input type="text" required style="width: 350px;">
+            </div>
+            <div class="input-box">
+                <label>Subject:</label>
+                <input type="text" required style="width: 350px;">
+                <label for=yearInput>Year:</label>
+                <input type="number" id="yearInput" min="1900" max="2100" oninput="getSelectedYear()" style="width: 350px; height: 40px;">
+            </div>
+            <div class="input-box">
+                <label>Semester:</label>
+                <input type="text" required style="width: 350px;">
+            </div>
+
+            <button>Search</button>
+        </div></center>
+        </form>
+        <script>
+            document.getElementById("searchForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Collect form data
+                const university = document.getElementById("universityInput").value;
+                const department = document.getElementById("departmentInput").value;
+                const subject = document.getElementById("subjectInput").value;
+                const year = document.getElementById("yearInput").value;
+                const semester = document.getElementById("semesterInput").value;
+
+                // Prepare the data to be sent
+                const searchData = {
+                    university: university,
+                    department: department,
+                    subject: subject,
+                    year: year,
+                    semester: semester
+                };
+
+                // Send the search data to the backend (You need to replace 'your-backend-url' with your actual backend URL)
+                fetch('your-backend-url', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(searchData),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response from the backend if needed
+                    console.log('Success:', data);
+                    // Display the search results on the page
+                    // For example, you can populate a list with the returned question papers
+                    displaySearchResults(data);
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error:', error);
+                    alert('An error occurred while searching for question papers.');
+                });
+            });
+
+            function displaySearchResults(data) {
+                // You can implement this function to display the search results on the page
+                // For example, you can populate a list with the returned question papers
+            }
+        </script>
+    </div>
+</body></center>
+</html>
