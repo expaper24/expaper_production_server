@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const userRouter = require("./routers/users_route");
 const paperRouter = require("./routers/paper_route");
 const cors = require("cors");
-const uri="mongodb+srv://heyjob_admin:<heyjob>@heyjob.zywq78i.mongodb.net/?retryWrites=true&w=majority&appName=HeyJob"
-const PORT = process.env.PORT;
+
+const PORT = process.env.PORT || 3000;
 const DB = process.env.DB_URL;
 
 const app = express();
