@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const userRouter = require("./routers/users_route");
 const paperRouter = require("./routers/paper_route");
 const cors = require("cors");
+const DB_URL = process.env.DB_URL;
 
 const PORT = process.env.PORT || 3000;
 const DB = process.env.DB_URL;
