@@ -44,13 +44,6 @@
             font-size: 16px;
             color: #f8f6f6;
         }
-
-        /* Style error message */
-        #errorMessage {
-            display: none;
-            color: red;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -59,14 +52,14 @@
         <span class="bg-animate2"></span>
         <div class="from-box login">
             <h2 class="animation" style="--i:0; --j:24;">Login</h2>
-            <form id="loginForm" action='/login' method="POST" onsubmit="return validateLoginForm()">
+            <form id="loginForm" action='#'>
                 <div class="input-box animation" style="--i:1; --j:25;">
-                    <input type="text" id="loginUsername" name="username" required>
+                    <input type="text" id="loginUsername" required>
                     <label>Username</label>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box animation" style="--i:2; --j:26;">
-                    <input type="password" id="loginPassword" name="password" required>
+                    <input type="password" id="loginPassword" required>
                     <label>Password</label>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
@@ -121,8 +114,6 @@
         </div>
     </div>
 
-    <div id="errorMessage"></div> <!-- Error message display -->
-
     <script>
         function showNotificationModal(message) {
             const notificationModal = document.getElementById('notificationModal');
@@ -137,27 +128,88 @@
             notificationModal.style.display = 'none';
         }
 
-        function validateLoginForm() {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
 
-            if (username.trim() === '' || password.trim() === '') {
-                showError('Username and password are required.');
-                return false;
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
             }
 
-            return true;
-        }
+            function validatePasswordLength(password) {
+                return password.length >= 8;
+            }
 
-        function showError(message) {
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerText = message;
-            errorMessage.style.display = 'block'; // Display error message
-            setTimeout(() => {
-                errorMessage.style.display = 'none'; // Hide error message after 3 seconds
-            }, 3000);
-        }
+            function isUsernameExists(username) {
+                // Replace this with your logic to check if the username already exists
+                // For simplicity, I'm just checking if the username is 'existingUser'
+                return username.toLowerCase() === 'existinguser';
+            }
+
+            function showError(message) {
+                showNotificationModal(message);
+            }
+
+           function validateLoginForm() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+
+    if (username.trim() === '' || password.trim() === '') {
+        showError('Username and password are required. ');
+        return false;
+    }
+
+    // Here you can perform additional validation if needed
+
+    // If everything is valid, redirect the user to another page
+    window.location.href = "your_redirect_url_here"; // Replace "your_redirect_url_here" with the URL you want to redirect to
+
+    return true;
+}
+
+
+            function validateRegisterForm() {
+                const username = document.getElementById('registerUsername').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+
+                if (username.trim() === '' || email.trim() === '' || password.trim() === '') {
+                    showError('All fields are required. ');
+                    return false;
+                }
+
+                if (!validateEmail(email)) {
+                    showError('Please enter a valid email address. ');
+                    return false;
+                }
+
+                if (!validatePasswordLength(password)) {
+                    showError('Password must be at least 8 characters long. ');
+                    return false;
+                }
+
+                if (isUsernameExists(username)) {
+                    showError('Username already exists. Please choose another one. ');
+                    return false;
+                }
+
+                return true;
+            }
+
+            loginForm.addEventListener('submit', function (e) {
+                if (!validateLoginForm()) {
+                    e.preventDefault();
+                }
+            });
+
+            registerForm.addEventListener('submit', function (e) {
+                if (!validateRegisterForm()) {
+                    e.preventDefault();
+                }
+            });
+        });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
